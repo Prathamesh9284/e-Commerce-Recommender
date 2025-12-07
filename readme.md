@@ -4,16 +4,15 @@ A full-stack application featuring a FastAPI backend and Next.js frontend. The b
 
 ## 🚀 Demo
 
-### 📺 Video Walkthrough
-
-Watch a full demo of the application:
-[![Watch Demo](https://img.youtube.com/vi/<your-youtube-video-id>/0.jpg)](https://www.youtube.com/watch?v=<your-youtube-video-id>)
-
 ### 🌐 Live Preview
 
 Try the app live:
-[https://your-live-app-url.com](https://your-live-app-url.com)
+[Website Link](https://your-live-app-url.com)
 
+### 📺 Video Walkthrough
+
+Watch a full demo of the application:
+[Watch Demo](https://www.youtube.com/watch?v=<your-youtube-video-id>)
 
 ## 📊 Recommendation Algorithm
 
