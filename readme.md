@@ -4,11 +4,6 @@ A full-stack application featuring a FastAPI backend and Next.js frontend. The b
 
 ## 🚀 Demo
 
-### 🌐 Live Preview
-
-Try the app live:
-[Website Link](https://your-live-app-url.com)
-
 ### 📺 Video Walkthrough
 
 Watch a full demo of the application:
