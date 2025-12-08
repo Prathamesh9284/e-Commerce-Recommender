@@ -22,7 +22,7 @@ The dataset includes:
 
 ### How It Works
 
-1. **User Behavior Retrieval**: Fetches interacted products user interacted with
+1. **User Behavior Retrieval**: Fetches products user interacted with
 2. **Category Focus**: Identifies category of most recently viewed product
 3. **Multi-Stage Filtering**:
    - Price range: ±12.5% of category average
