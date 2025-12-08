@@ -6,13 +6,11 @@ A full-stack application featuring a FastAPI backend and Next.js frontend. The b
 
 ### 📺 Video Walkthrough
 
-Watch a full demo of the application:
-[Watch Demo](https://youtu.be/E96N9MI7B-s)
+Watch a full demo of the application: [Watch Demo](https://youtu.be/E96N9MI7B-s)
 
 ### 📦 Dataset
 
-Download the sample datasets from Google Drive:  
-[Product Catalog & User Behavior Data](https://drive.google.com/drive/folders/12HwysndCkPmwUhxlFpJgHt1wSnTLl4v-?usp=sharing)
+Download the sample datasets from Google Drive: [Product Catalog & User Behavior Data](https://drive.google.com/drive/folders/12HwysndCkPmwUhxlFpJgHt1wSnTLl4v-?usp=sharing)
 
 The dataset includes:
 - `product_catalog.csv` - Product inventory with details
@@ -24,7 +22,7 @@ The dataset includes:
 
 ### How It Works
 
-1. **User Behavior Retrieval**: Fetches last 10 products user interacted with
+1. **User Behavior Retrieval**: Fetches interacted products user interacted with
 2. **Category Focus**: Identifies category of most recently viewed product
 3. **Multi-Stage Filtering**:
    - Price range: ±12.5% of category average
@@ -140,8 +138,6 @@ The frontend integrates with a FastAPI backend. All 14 API endpoints are fully i
 | PUT | `/behavior/update_behavior/{behavior_id}` | Update behavior |
 | DELETE | `/behavior/delete_behavior/{behavior_id}` | Delete behavior |
 
-**📚 Full API Documentation:** See [API_INTEGRATION.md](./API_INTEGRATION.md)
-
 ## 🛠️ Tech Stack
 
 ### Backend
@@ -176,18 +172,18 @@ The frontend integrates with a FastAPI backend. All 14 API endpoints are fully i
 ### Backend (`e-Commerce-Recommender-backend/`)
 
 ```
-e-Commerce-Recommender-backend/
-├── main.py                 # FastAPI application entry point
-├── routers/
-│   ├── recommend.py        # Recommendation endpoints
-│   ├── product.py          # Product CRUD endpoints
-│   └── behavior.py         # User behavior endpoints
-├── utils/
-│   └── recommender.py      # Core recommendation logic
-├── requirements.txt        # Python dependencies
-├── dockerfile              # Docker configuration
-├── .env                    # Environment variables
-└── readme.md               # This file
+backend/
+├──app/
+│   ├── main.py                 # FastAPI application entry point
+│   ├── routers/
+│   │   ├── recommend.py        # Recommendation endpoints
+│   │   ├── product.py          # Product CRUD endpoints
+│   │   └── behavior.py         # User behavior endpoints
+│   ├── utils/
+│   │   └── recommender.py      # Core recommendation logic
+│   ├── dockerfile              # Docker configuration
+│   ├── .env                    # Environment variables
+└── requirements.txt            # Python dependencies
 ```
 
 ### Frontend (`recommendai/`)
