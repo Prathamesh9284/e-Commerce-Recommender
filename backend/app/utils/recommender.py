@@ -52,7 +52,7 @@ def get_embeddings(texts):
         logger.error(f"Error generating embeddings: {str(e)}")
         raise
 
-def generate_explanation(user_products, recommended_products):
+def generate_explanation(user_products, recommended_products, recent_category):
     """
     Generate human-readable explanation for recommendations using LLM
     
@@ -65,40 +65,70 @@ def generate_explanation(user_products, recommended_products):
     """
     logger.info("Generating LLM explanation for recommendations")
     
-    # Format user products
+    user_products = user_products[::-1]  # Reverse to get most recent first
+    
+    # Filter user products by recent category
+    filtered_user_products = []
+    for p in reversed(user_products):  # Start from most recent
+        if p.get('category') == recent_category:
+            filtered_user_products.insert(0, p)  # Insert at beginning to maintain order
+        else:
+            break  # Stop when different category is found
+    
+    # Format user products (only from the same category)
     user_items = "\n".join([f"- {p['name']} (Brand: {p['brand']}, Price: ₹{p['price']}, Rating: {p['rating']}/5)" 
-                            for p in user_products])
+                            for p in filtered_user_products])
+    
+    print(f"user_items: {user_items}")
     
     # Format recommended products
     rec_items = "\n".join([f"- {p['name']} (Brand: {p['brand']}, Price: ₹{p['price']}, Rating: {p['rating']}/5, Similarity: {p['similarity_score']:.2f})" 
                             for p in recommended_products])
     
-    SYSTEM_PROMPT = """
-You are an expert e-commerce recommendation assistant that explains the reasoning behind product recommendations.
+    SYSTEM_PROMPT = """You are a helpful shopping assistant explaining product recommendations in simple, everyday language.
 
-Your explanations should be:
-- Clear and easy to understand
-- Based on actual recommendation algorithm factors
-- Friendly and conversational
-- Focused on helping users understand why these products match their interests
-- Around 150-200 words
+Your explanations must be:
+- Simple and conversational (150-200 words maximum)
+- Easy to understand for any shopper
+- Focused on what the customer cares about
+- Professional but friendly
+- NO technical jargon or algorithm details
 
-Key factors to consider in your explanation:
-1. **Semantic Similarity**: How similar the recommended products are to what the user viewed (based on product names and features)
-2. **Category Matching**: Products are from the same category as the user's recent interest
-3. **Price Range**: Recommendations are within ±12.5% of the average price in the category
-4. **Rating Filter**: Only products with ratings above the median are recommended
-5. **Combined Scoring**: Products are ranked by a weighted score (50% similarity + 30% rating + 20% price value)
+Explain recommendations by focusing on:
+1. **What they've been looking at**: Briefly mention their recent interests
+2. **Why these products match**: 
+   - Similar features or style to what they viewed
+   - Good customer reviews and ratings
+   - Fair pricing compared to what they've looked at
+3. **What makes them good choices**:
+   - Quality (mention specific ratings)
+   - Value (mention price points)
+   - Brand patterns if they exist
 
-Explain in a friendly, conversational tone why these products are good recommendations based on:
-- Common patterns in browsing (category, brand preferences)
-- How recommended products match their interests
-- Value proposition (price, ratings, features)
-- What the similarity and overall scores indicate
+Use everyday shopping language. Avoid terms like:
+- "Semantic similarity", "similarity scores", "algorithms"
+- "Price range filters", "rating thresholds"
+- "Weighted scores", "combined scoring"
+- Any percentage ranges (±12.5%)
 
-Keep it natural and engaging."""
+Instead, say things like:
+- "These match what you've been looking at"
+- "Customers really like these" (for high ratings)
+- "Priced similarly to what you've viewed"
+- "Same brand as your other interests"
 
-    HUMAN_PROMPT = f"""**User's Recent Activities:**
+Be helpful and informative, like a knowledgeable store assistant."""
+
+    HUMAN_PROMPT = f"""The customer recently looked at these products:
+{user_items}
+
+We're suggesting these products:
+{rec_items}
+
+Explain in simple terms why these are good matches for this customer."""
+
+    HUMAN_PROMPT = f"""**
+Recently Interacted Produc:**
 {user_items}
 
 **Recommended Products:**
@@ -309,7 +339,7 @@ def get_recommendations(user_id=None, limit=5):
     
     logger.info(f"Generated {len(recommendations)} recommendations")
     
-    explanation = generate_explanation(user_products_list, recommendations)
+    explanation = generate_explanation(user_products_list, recommendations, recent_cat)
     
     # Save recommendations to database
     if recommendations and user_id:

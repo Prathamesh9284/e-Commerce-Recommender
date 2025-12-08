@@ -7,7 +7,16 @@ A full-stack application featuring a FastAPI backend and Next.js frontend. The b
 ### 📺 Video Walkthrough
 
 Watch a full demo of the application:
-[Watch Demo](https://www.youtube.com/watch?v=<your-youtube-video-id>)
+[Watch Demo](https://youtu.be/E96N9MI7B-s)
+
+### 📦 Dataset
+
+Download the sample datasets from Google Drive:  
+[Product Catalog & User Behavior Data](https://drive.google.com/drive/folders/12HwysndCkPmwUhxlFpJgHt1wSnTLl4v-?usp=sharing)
+
+The dataset includes:
+- `product_catalog.csv` - Product inventory with details
+- `user_behavior_U1001.csv` - Sample user interaction data
 
 ## 📊 Recommendation Algorithm
 
@@ -45,6 +54,7 @@ Watch a full demo of the application:
     ```bash
     git clone <repository-url>
     cd backend
+    cd app
     ```
 
 2. Install dependencies:
@@ -69,7 +79,7 @@ Watch a full demo of the application:
 
 1. Enter the frontend folder:
     ```bash
-    cd ../frontend
+    cd frontend
     ```
 
 2. Install dependencies:

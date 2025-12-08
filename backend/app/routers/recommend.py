@@ -59,16 +59,16 @@ async def upload_user_behavior(
         "message": "User behavior uploaded successfully",
     }
     
-# @router.get("/recommendations/{user_id}")
-# async def get_user_recommendations(user_id: str):
-#     """
-#     Generate and store product recommendations for a user with optional LLM explanation
-#     """
-#     result = get_recommendations(user_id=user_id, limit=5)
+@router.get("/recommendations/{user_id}")
+async def get_user_recommendations(user_id: str):
+    """
+    Generate and store product recommendations for a user with optional LLM explanation
+    """
+    result = get_recommendations(user_id=user_id, limit=5)
     
-#     return result
-
-@router.get("/recommendations/stored")
+    return result
+    
+@router.get("/stored/recommendations")
 async def get_stored_user_recommendations():
     """
     Retrieve stored recommendations for a user from database
@@ -79,10 +79,9 @@ async def get_stored_user_recommendations():
     ))
 
     if result:
-        return {
-            "data": result[0]
-        }
+        return result[0]
     else:
         return {
-            "message": "No stored recommendations found"
+            "recommendations": [],
+            "explanation": ""
         }
